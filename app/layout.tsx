@@ -1,4 +1,5 @@
-import { Geist, Geist_Mono, Inter, Montserrat } from "next/font/google";
+import { Geist_Mono, Inter, Montserrat } from "next/font/google";
+import Link from "next/link";
 
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
 	return (
 		<html
-			lang="en"
+			lang="fr"
 			suppressHydrationWarning
 			className={cn(
 				"antialiased",
@@ -33,8 +34,25 @@ export default function RootLayout({
 				montserratHeading.variable
 			)}
 		>
-			<body>
-				<ThemeProvider>{children}</ThemeProvider>
+			<body className="flex min-h-dvh flex-col">
+				<header className="sticky top-0 z-10 mx-auto mb-16 w-full max-w-6xl bg-white/75 px-4 pt-4 pb-4 backdrop-blur sm:px-12 sm:pt-8 md:mb-28 lg:mb-36 dark:bg-black/75">
+					<nav className="flex items-center justify-between">
+						<Link href="/" className="text-2xl font-bold">
+							Ecommerce™
+						</Link>
+						<Link href="/products">Produits</Link>
+					</nav>
+				</header>
+				<ThemeProvider>
+					<div className="flex-1">{children}</div>
+				</ThemeProvider>
+				<footer className="z-10 mx-auto mt-16 flex w-full max-w-6xl items-center justify-between gap-x-8 gap-y-4 px-4 pt-4 pb-4 backdrop-blur sm:px-12 sm:pt-8 md:mb-28 lg:mb-36">
+					<Link href="/about">À propos</Link>
+					<Link href="/contact">Contact</Link>
+					<Link href="/terms">Termes et conditions</Link>
+					<Link href="/returns">Retours</Link>
+					<Link href="/legals">Mentions légales</Link>
+				</footer>
 			</body>
 		</html>
 	);
