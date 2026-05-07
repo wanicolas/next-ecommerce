@@ -44,7 +44,9 @@ export default function RootLayout({
 					</nav>
 				</header>
 				<ThemeProvider>
-					<div className="flex-1">{children}</div>
+					<div className="mx-auto w-full max-w-6xl flex-1 px-4 sm:px-12">
+						{children}
+					</div>
 				</ThemeProvider>
 				<footer className="z-10 mx-auto mt-16 flex w-full max-w-6xl items-center justify-between gap-x-8 gap-y-4 px-4 pt-4 pb-4 backdrop-blur sm:px-12 sm:pt-8 md:mb-28 lg:mb-36">
 					<Link href="/about">À propos</Link>
