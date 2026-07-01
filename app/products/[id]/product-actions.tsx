@@ -1,0 +1,105 @@
+"use client";
+
+import * as React from "react";
+import { useState } from "react";
+import { useCart, CartItem } from "@/components/cart-context";
+import { Button } from "@/components/ui/button";
+import { Minus, Plus, ShoppingBag, Loader2 } from "lucide-react";
+
+interface ProductActionsProps {
+	product: CartItem["product"];
+}
+
+export function ProductActions({ product }: ProductActionsProps) {
+	const { addToCart } = useCart();
+	const [quantity, setQuantity] = useState(1);
+	const [isAdding, setIsAdding] = useState(false);
+
+	const handleDecrease = () => {
+		if (quantity > 1) {
+			setQuantity(quantity - 1);
+		}
+	};
+
+	const handleIncrease = () => {
+		// Mock max stock limit of 10
+		if (quantity < 10) {
+			setQuantity(quantity + 1);
+		}
+	};
+
+	const handleAdd = () => {
+		setIsAdding(true);
+		// Simulate network delay to make the UX feel premium and real
+		setTimeout(() => {
+			addToCart(product, quantity);
+			setIsAdding(false);
+		}, 600);
+	};
+
+	return (
+		<div className="flex flex-col gap-4">
+			{/* Quantity Selector & Stock Scarcity */}
+			<div className="space-y-2">
+				<div className="flex items-center gap-3">
+					<span className="text-sm font-medium text-muted-foreground">
+						Quantité
+					</span>
+					<div className="flex items-center rounded-lg border border-border bg-card p-1">
+						<button
+							onClick={handleDecrease}
+							disabled={quantity <= 1 || isAdding}
+							className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+							type="button"
+							aria-label="Diminuer la quantité"
+						>
+							<Minus className="h-4 w-4" />
+						</button>
+						<span className="w-10 text-center text-sm font-semibold text-foreground select-none">
+							{quantity}
+						</span>
+						<button
+							onClick={handleIncrease}
+							disabled={quantity >= 10 || isAdding}
+							className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+							type="button"
+							aria-label="Augmenter la quantité"
+						>
+							<Plus className="h-4 w-4" />
+						</button>
+					</div>
+					{quantity >= 10 && (
+						<span className="text-xs text-amber-500 font-medium">
+							Limite maximale atteinte (10)
+						</span>
+					)}
+				</div>
+				<p className="text-xs text-muted-foreground">
+					Plus que <span className="font-semibold text-foreground">6 articles</span> en stock - Expédition sous 24h
+				</p>
+			</div>
+
+			{/* Add to Cart Button */}
+			<div className="flex flex-col sm:flex-row gap-3">
+				<Button
+					size="lg"
+					className="flex-1 font-semibold transition-all duration-200"
+					onClick={handleAdd}
+					disabled={isAdding}
+				>
+					{isAdding ? (
+						<>
+							<Loader2 className="mr-2 h-4 w-4 animate-spin" />
+							Ajout en cours...
+						</>
+					) : (
+						<>
+							<ShoppingBag className="mr-2 h-4 w-4" />
+							Ajouter au panier
+						</>
+					)}
+				</Button>
+			</div>
+		</div>
+	);
+}
