@@ -5,13 +5,14 @@ import Link from "next/link";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
-import { CheckCircle2, ArrowRight } from "lucide-react";
+import { CheckCircle2 } from "lucide-react";
 
 interface OrderSuccessProps {
 	orderResult: {
 		id: number;
 		userId: number;
 		date: string;
+		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		items: any[];
 		total: number;
 	};
@@ -51,6 +52,7 @@ export function OrderSuccess({ orderResult }: OrderSuccessProps) {
 							Articles commandés
 						</span>
 						<div className="divide-y divide-border">
+							{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 							{orderResult.items.map((item: any) => (
 								<div
 									key={item.product.id}
@@ -82,7 +84,7 @@ export function OrderSuccess({ orderResult }: OrderSuccessProps) {
 					<Link href="/products">Continuer mes achats</Link>
 				</Button>
 				<Button asChild variant="outline" size="lg" className="cursor-pointer">
-					<Link href="/">Retour à l'accueil</Link>
+					<Link href="/">Retour à l&apos;accueil</Link>
 				</Button>
 			</div>
 		</div>

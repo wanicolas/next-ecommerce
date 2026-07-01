@@ -25,7 +25,7 @@ L'application communique avec l'API publique [FakeStoreAPI](https://fakestoreapi
 6. **Espace Compte & Authentification** :
    - Formulaire de connexion simulé à l'aide de cookies de session (`token`, `username`).
    - Récupération dynamique et rendu de l'historique des commandes passées de l'utilisateur sur FakeStoreAPI.
-   - *Note de test* : Utilisez des identifiants réels de l'API (ex : nom d'utilisateur `johnd` / mot de passe `m38rmF$`) pour charger un historique de commandes existant.
+   - _Note de test_ : Utilisez des identifiants réels de l'API (ex : nom d'utilisateur `johnd` / mot de passe `m38rmF$`) pour charger un historique de commandes existant.
 
 ---
 
@@ -42,22 +42,27 @@ Le projet applique des concepts d'architecture Next.js modernes :
 ## 🚀 Démarrage Rapide
 
 ### 1. Installation des dépendances
+
 ```bash
 pnpm install
 ```
 
 ### 2. Lancer le serveur de développement
+
 ```bash
 pnpm dev
 ```
+
 Ouvrez [http://localhost:3000](http://localhost:3000) dans votre navigateur.
 
 ### 3. Valider les types TypeScript
+
 ```bash
 pnpm typecheck
 ```
 
 ### 4. Compiler le projet pour la production
+
 ```bash
 pnpm build
 ```

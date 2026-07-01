@@ -2,11 +2,13 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Package, Loader2, ShoppingBag } from "lucide-react";
 
 interface OrderHistoryProps {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	orders: any[];
 	isLoading: boolean;
 }
@@ -35,7 +37,7 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 						Aucune commande passée
 					</h3>
 					<p className="mt-1 max-w-xs text-sm text-muted-foreground">
-						Vous n'avez pas encore effectué d'achats avec ce compte.
+						Vous n&apos;avez pas encore effectué d&apos;achats avec ce compte.
 					</p>
 				</div>
 			) : (
@@ -58,7 +60,7 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 									</div>
 									<div>
 										<span className="block text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
-											Date d'achat
+											Date d&apos;achat
 										</span>
 										<span className="text-sm font-medium text-foreground">
 											{new Date(order.date).toLocaleDateString("fr-FR")}
@@ -87,6 +89,7 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 
 							{/* Order Card Items List */}
 							<CardContent className="divide-y divide-border p-6">
+								{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 								{order.items.map((item: any) => (
 									<div
 										key={item.productId}
@@ -97,9 +100,11 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 												href={`/products/${item.productId}`}
 												className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white p-1 transition-opacity hover:opacity-95"
 											>
-												<img
+												<Image
 													src={item.product.image}
-													alt=""
+													alt={item.product.title || ""}
+													width={48}
+													height={48}
 													className="h-full w-full object-contain"
 												/>
 											</Link>

@@ -14,9 +14,12 @@ export default async function Page({
 	if (!response.ok) {
 		return (
 			<div className="flex flex-col items-center justify-center py-20 text-center">
-				<h2 className="text-2xl font-bold">Impossible de charger les produits</h2>
+				<h2 className="text-2xl font-bold">
+					Impossible de charger les produits
+				</h2>
 				<p className="mt-2 text-muted-foreground">
-					Une erreur s'est produite lors de la récupération du catalogue. Veuillez réessayer plus tard.
+					Une erreur s&apos;est produite lors de la récupération du catalogue.
+					Veuillez réessayer plus tard.
 				</p>
 			</div>
 		);
@@ -25,28 +28,32 @@ export default async function Page({
 	const products = await response.json();
 
 	return (
-		<div className="pb-16 animate-in fade-in duration-300">
+		<div className="animate-in pb-16 duration-300 fade-in">
 			{/* Breadcrumbs */}
 			<div className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
-				<Link href="/" className="hover:text-foreground transition-colors">
+				<Link href="/" className="transition-colors hover:text-foreground">
 					Accueil
 				</Link>
 				<span>/</span>
-				<span className="text-foreground font-medium">Produits</span>
+				<span className="font-medium text-foreground">Produits</span>
 			</div>
 
 			{/* Page Header */}
-			<div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+			<div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl font-heading">
+					<h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
 						Nos Produits
 					</h1>
-					<p className="text-muted-foreground mt-2 text-sm sm:text-base max-w-xl">
-						Découvrez notre sélection exclusive de vêtements, bijoux et articles électroniques de qualité supérieure au meilleur prix.
+					<p className="mt-2 max-w-xl text-sm text-muted-foreground sm:text-base">
+						Découvrez notre sélection exclusive de vêtements, bijoux et articles
+						électroniques de qualité supérieure au meilleur prix.
 					</p>
 				</div>
 				<div className="shrink-0">
-					<Badge variant="secondary" className="px-3 py-1 font-semibold text-sm">
+					<Badge
+						variant="secondary"
+						className="px-3 py-1 text-sm font-semibold"
+					>
 						{products.length} articles disponibles
 					</Badge>
 				</div>

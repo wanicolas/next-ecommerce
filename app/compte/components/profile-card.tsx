@@ -64,7 +64,7 @@ export function ProfileCard({
 
 				<div className="grid gap-1">
 					<span className="text-xs font-semibold tracking-wider text-muted-foreground uppercase">
-						Nom d'utilisateur
+						Nom d&apos;utilisateur
 					</span>
 					<span className="font-semibold text-foreground">
 						{usernameSession}

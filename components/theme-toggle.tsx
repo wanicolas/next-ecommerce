@@ -13,7 +13,7 @@ export function ThemeToggle() {
 
 	// Avoid hydration mismatch by rendering a placeholder until mounted
 	useEffect(() => {
-		setMounted(true);
+		setTimeout(() => setMounted(true), 0);
 	}, []);
 
 	// Click outside handler

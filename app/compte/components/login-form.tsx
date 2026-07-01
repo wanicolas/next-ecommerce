@@ -1,37 +1,40 @@
 "use client";
 
 import * as React from "react";
-import { useState } from "react";
+import { useActionState, useEffect } from "react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
+import { loginAction } from "../actions";
 
 interface LoginFormProps {
-	onSubmit: (username: string, password: string) => void;
-	isLoading: boolean;
+	onSuccess: () => void;
+	onError: (msg: string | null) => void;
 }
 
-export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
-	const [usernameInput, setUsernameInput] = useState("");
-	const [passwordInput, setPasswordInput] = useState("");
+export function LoginForm({ onSuccess, onError }: LoginFormProps) {
+	// React 19 hook to manage Server Actions state natively
+	const [state, formAction, isPending] = useActionState(loginAction, null);
 
-	const handleSubmit = (e: React.FormEvent) => {
-		e.preventDefault();
-		if (!usernameInput || !passwordInput) return;
-		onSubmit(usernameInput, passwordInput);
-	};
+	useEffect(() => {
+		if (state?.error) {
+			onError(state.error);
+		} else if (state?.success) {
+			onError(null);
+			onSuccess();
+		}
+	}, [state, onSuccess, onError]);
 
 	return (
-		<form onSubmit={handleSubmit} className="grid gap-4">
+		<form action={formAction} className="grid gap-4">
 			<div className="grid gap-2">
-				<Label htmlFor="username">Nom d'utilisateur</Label>
+				<Label htmlFor="username">Nom d&apos;utilisateur</Label>
 				<Input
 					id="username"
+					name="username"
 					type="text"
 					placeholder="Ex: mor_2314 (johnd)"
-					value={usernameInput}
-					onChange={(e) => setUsernameInput(e.target.value)}
-					disabled={isLoading}
+					disabled={isPending}
 					required
 				/>
 			</div>
@@ -40,11 +43,10 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
 				<Label htmlFor="password">Mot de passe</Label>
 				<Input
 					id="password"
+					name="password"
 					type="password"
 					placeholder="••••••••"
-					value={passwordInput}
-					onChange={(e) => setPasswordInput(e.target.value)}
-					disabled={isLoading}
+					disabled={isPending}
 					required
 				/>
 			</div>
@@ -52,9 +54,9 @@ export function LoginForm({ onSubmit, isLoading }: LoginFormProps) {
 			<Button
 				type="submit"
 				className="w-full cursor-pointer font-semibold"
-				disabled={isLoading}
+				disabled={isPending}
 			>
-				{isLoading ? "Connexion..." : "Se connecter"}
+				{isPending ? "Connexion..." : "Se connecter"}
 			</Button>
 		</form>
 	);

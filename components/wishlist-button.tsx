@@ -17,7 +17,7 @@ export function WishlistButton({ product, className }: WishlistButtonProps) {
 
 	// Prevent hydration mismatch
 	useEffect(() => {
-		setMounted(true);
+		setTimeout(() => setMounted(true), 0);
 	}, []);
 
 	const handleToggle = (e: React.MouseEvent) => {

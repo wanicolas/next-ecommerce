@@ -2,16 +2,11 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useWishlist } from "@/components/wishlist-context";
 import { useCart } from "@/components/cart-context";
 import { Button } from "@/components/ui/button";
-import {
-	Card,
-	CardHeader,
-	CardTitle,
-	CardDescription,
-	CardFooter,
-} from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardFooter } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Trash2, ShoppingCart, Heart, ArrowRight } from "lucide-react";
 import { StarRating } from "@/components/star-rating";
@@ -51,7 +46,6 @@ export default function WishlistPage() {
 
 			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
 				{wishlistItems.map((product) => {
-					const rating = product.rating || { rate: 0, count: 0 };
 					return (
 						<Card
 							key={product.id}
@@ -69,11 +63,12 @@ export default function WishlistPage() {
 							{/* Image Container */}
 							<Link href={`/products/${product.id}`} className="block">
 								<div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border-b border-border bg-white p-6">
-									<img
+									<Image
 										src={product.image}
 										alt={product.title}
+										width={180}
+										height={140}
 										className="h-full max-h-[140px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
-										loading="lazy"
 									/>
 								</div>
 							</Link>

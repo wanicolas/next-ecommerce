@@ -3,13 +3,21 @@
 import * as React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { useCart } from "@/components/cart-context";
+import { useCart, CartItem } from "@/components/cart-context";
 import { Button } from "@/components/ui/button";
 import { ShoppingBag as ShoppingBagIcon, ArrowRight } from "lucide-react";
 
 import { OrderSuccess } from "./components/order-success";
 import { CartItemRow } from "./components/cart-item-row";
 import { CartSummary } from "./components/cart-summary";
+
+interface OrderResult {
+	id: number;
+	userId: number;
+	date: string;
+	items: CartItem[];
+	total: number;
+}
 
 export default function CartPage() {
 	const {
@@ -22,7 +30,7 @@ export default function CartPage() {
 	} = useCart();
 
 	const [isOrdering, setIsOrdering] = useState(false);
-	const [orderResult, setOrderResult] = useState<any>(null);
+	const [orderResult, setOrderResult] = useState<OrderResult | null>(null);
 
 	const handleCheckout = async () => {
 		if (cartItems.length === 0) return;

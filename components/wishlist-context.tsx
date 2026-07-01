@@ -44,13 +44,17 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
 		try {
 			const savedWishlist = localStorage.getItem("next_ecommerce_wishlist");
 			if (savedWishlist) {
-				setWishlistItems(JSON.parse(savedWishlist));
+				const parsed = JSON.parse(savedWishlist);
+				setTimeout(() => {
+					setWishlistItems(parsed);
+					setIsLoaded(true);
+				}, 0);
+				return;
 			}
 		} catch (error) {
 			console.error("Failed to load wishlist from localStorage", error);
-		} finally {
-			setIsLoaded(true);
 		}
+		setTimeout(() => setIsLoaded(true), 0);
 	}, []);
 
 	// Sync wishlist to localStorage

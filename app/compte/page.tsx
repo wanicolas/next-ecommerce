@@ -14,7 +14,7 @@ import {
 import { Separator } from "@/components/ui/separator";
 import { Button } from "@/components/ui/button";
 
-import { getCookie, setCookie, eraseCookie } from "@/lib/cookies";
+import { getCookie, eraseCookie } from "@/lib/cookies";
 import { LoginForm } from "./components/login-form";
 import { RegisterForm } from "./components/register-form";
 import { ProfileCard } from "./components/profile-card";
@@ -44,6 +44,7 @@ export default function Page() {
 	const [userProfile, setUserProfile] = useState<UserProfile | null>(null);
 
 	// Order history states
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const [orders, setOrders] = useState<any[]>([]);
 	const [isLoadingOrders, setIsLoadingOrders] = useState(false);
 
@@ -55,21 +56,45 @@ export default function Page() {
 	const [error, setError] = useState<string | null>(null);
 	const [success, setSuccess] = useState<string | null>(null);
 
+	// Fetch user details from FakeStoreAPI list matching the username
+	const fetchUserProfile = async (username: string) => {
+		try {
+			const response = await fetch("https://fakestoreapi.com/users");
+			if (response.ok) {
+				const users = await response.json();
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
+				const user = users.find((u: any) => u.username === username);
+				if (user) {
+					setUserProfile(user);
+				}
+			}
+		} catch (err) {
+			console.error(
+				"Erreur lors de la récupération des détails de l'utilisateur",
+				err
+			);
+		}
+	};
+
 	// Load session on mount
 	useEffect(() => {
 		const storedToken = getCookie("token");
 		const storedUsername = getCookie("username");
 		if (storedToken && storedUsername) {
-			setToken(storedToken);
-			setUsernameSession(storedUsername);
-			fetchUserProfile(storedUsername);
+			setTimeout(() => {
+				setToken(storedToken);
+				setUsernameSession(storedUsername);
+				fetchUserProfile(storedUsername);
+			}, 0);
 		}
 	}, []);
 
 	// Clear temporary notifications when switching forms
 	useEffect(() => {
-		setError(null);
-		setSuccess(null);
+		setTimeout(() => {
+			setError(null);
+			setSuccess(null);
+		}, 0);
 	}, [isLogin]);
 
 	const fetchUserOrders = async (userId: number) => {
@@ -84,9 +109,12 @@ export default function Page() {
 				const carts = await cartsResponse.json();
 				const products = await productsResponse.json();
 
+				// eslint-disable-next-line @typescript-eslint/no-explicit-any
 				const resolvedCarts = carts.map((cart: any) => {
 					let total = 0;
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					const items = cart.products.map((item: any) => {
+						// eslint-disable-next-line @typescript-eslint/no-explicit-any
 						const prod = products.find((p: any) => p.id === item.productId);
 						if (prod) {
 							total += prod.price * item.quantity;
@@ -110,6 +138,7 @@ export default function Page() {
 				});
 
 				resolvedCarts.sort(
+					// eslint-disable-next-line @typescript-eslint/no-explicit-any
 					(a: any, b: any) =>
 						new Date(b.date).getTime() - new Date(a.date).getTime()
 				);
@@ -124,66 +153,22 @@ export default function Page() {
 
 	useEffect(() => {
 		if (userProfile?.id) {
-			fetchUserOrders(userProfile.id);
+			setTimeout(() => {
+				fetchUserOrders(userProfile.id);
+			}, 0);
 		}
 	}, [userProfile]);
 
-	// Fetch user details from FakeStoreAPI list matching the username
-	const fetchUserProfile = async (username: string) => {
-		try {
-			const response = await fetch("https://fakestoreapi.com/users");
-			if (response.ok) {
-				const users = await response.json();
-				const user = users.find((u: any) => u.username === username);
-				if (user) {
-					setUserProfile(user);
-				}
-			}
-		} catch (err) {
-			console.error(
-				"Erreur lors de la récupération des détails de l'utilisateur",
-				err
-			);
-		}
-	};
-
-	const handleLogin = async (usernameInput: string, passwordInput: string) => {
+	const handleLoginSuccess = async () => {
 		setError(null);
 		setSuccess(null);
-		setIsLoading(true);
-		try {
-			const response = await fetch("https://fakestoreapi.com/auth/login", {
-				method: "POST",
-				headers: {
-					"Content-Type": "application/json",
-				},
-				body: JSON.stringify({
-					username: usernameInput,
-					password: passwordInput,
-				}),
-			});
-
-			if (!response.ok) {
-				throw new Error("Nom d'utilisateur ou mot de passe incorrect.");
-			}
-
-			const data = await response.json();
-			if (data.token) {
-				setCookie("token", data.token, 7);
-				setCookie("username", usernameInput, 7);
-				setToken(data.token);
-				setUsernameSession(usernameInput);
-				await fetchUserProfile(usernameInput);
-				setSuccess("Connexion réussie.");
-			} else {
-				throw new Error("Jeton manquant dans la réponse de l'API.");
-			}
-		} catch (err: any) {
-			setError(
-				err.message || "Une erreur s'est produite lors de la connexion."
-			);
-		} finally {
-			setIsLoading(false);
+		const storedToken = getCookie("token");
+		const storedUsername = getCookie("username");
+		if (storedToken && storedUsername) {
+			setToken(storedToken);
+			setUsernameSession(storedUsername);
+			await fetchUserProfile(storedUsername);
+			setSuccess("Connexion réussie.");
 		}
 	};
 
@@ -238,10 +223,12 @@ export default function Page() {
 			setTimeout(() => {
 				setIsLogin(true);
 			}, 4000);
-		} catch (err: any) {
-			setError(
-				err.message || "Une erreur s'est produite lors de l'inscription."
-			);
+		} catch (err: unknown) {
+			const errMsg =
+				err instanceof Error
+					? err.message
+					: "Une erreur s'est produite lors de l'inscription.";
+			setError(errMsg);
 		} finally {
 			setIsLoading(false);
 		}
@@ -302,7 +289,13 @@ export default function Page() {
 					)}
 
 					{isLogin ? (
-						<LoginForm onSubmit={handleLogin} isLoading={isLoading} />
+						<LoginForm
+							onSuccess={handleLoginSuccess}
+							onError={(msg) => {
+								setError(msg);
+								setSuccess(null);
+							}}
+						/>
 					) : (
 						<RegisterForm
 							onSubmit={handleRegister}

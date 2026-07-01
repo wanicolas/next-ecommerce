@@ -2,8 +2,8 @@
 
 import * as React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { Card, CardContent } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
 import { Trash2, Plus, Minus } from "lucide-react";
 import { CartItem } from "@/components/cart-context";
 
@@ -23,9 +23,11 @@ export function CartItemRow({
 			<CardContent className="flex flex-col items-center gap-4 p-4 sm:flex-row sm:gap-6 sm:p-6">
 				{/* Thumbnail */}
 				<div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white p-2">
-					<img
+					<Image
 						src={item.product.image}
 						alt={item.product.title}
+						width={96}
+						height={96}
 						className="h-full w-full object-contain"
 					/>
 				</div>

@@ -68,7 +68,7 @@ export function CartSummary({
 
 					<p className="text-center text-[10px] leading-normal text-muted-foreground">
 						En validant votre commande, vous acceptez nos conditions générales
-						de vente. Simulation d'API réalisée sur fakestoreapi.com.
+						de vente. Simulation d&apos;API réalisée sur fakestoreapi.com.
 					</p>
 				</CardContent>
 			</Card>

@@ -58,7 +58,7 @@ export function RegisterForm({
 			</div>
 
 			<div className="grid gap-2">
-				<Label htmlFor="reg-username">Nom d'utilisateur</Label>
+				<Label htmlFor="reg-username">Nom d&apos;utilisateur</Label>
 				<Input
 					id="reg-username"
 					type="text"

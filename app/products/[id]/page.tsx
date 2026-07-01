@@ -1,9 +1,10 @@
 import * as React from "react";
 import Link from "next/link";
-import { ArrowLeft, Truck, ShieldCheck, Lock, ShoppingBag } from "lucide-react";
+import Image from "next/image";
+import { ArrowLeft, Truck, ShieldCheck, Lock } from "lucide-react";
 import { StarRating } from "@/components/star-rating";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import { Card } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { ProductActions } from "./product-actions";
 
@@ -20,7 +21,8 @@ export default async function Page({
 			<div className="flex flex-col items-center justify-center py-20 text-center">
 				<h2 className="text-2xl font-bold">Produit introuvable</h2>
 				<p className="mt-2 text-muted-foreground">
-					Désolé, ce produit n'existe pas ou a été retiré de notre catalogue.
+					Désolé, ce produit n&apos;existe pas ou a été retiré de notre
+					catalogue.
 				</p>
 				<Link
 					href="/products"
@@ -44,8 +46,6 @@ export default async function Page({
 			count: number;
 		};
 	} = await response.json();
-
-	const rating = product.rating;
 
 	return (
 		<div className="animate-in pb-16 duration-300 fade-in">
@@ -83,10 +83,13 @@ export default async function Page({
 				<div className="lg:col-span-6">
 					<Card className="flex min-h-[350px] items-center justify-center overflow-hidden border-border bg-white p-8 md:min-h-[450px] dark:bg-zinc-900/40">
 						<div className="relative flex aspect-square w-full max-w-[320px] items-center justify-center md:max-w-[400px]">
-							<img
+							<Image
 								src={product.image}
 								alt={product.title}
+								width={400}
+								height={400}
 								className="h-full max-h-[320px] w-auto object-contain transition-transform duration-300 hover:scale-105 md:max-h-[400px]"
+								priority
 							/>
 						</div>
 					</Card>

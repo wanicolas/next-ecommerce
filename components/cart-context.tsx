@@ -3,6 +3,7 @@
 import * as React from "react";
 import { createContext, useContext, useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { X, ShoppingBag } from "lucide-react";
 
 export interface CartItem {
@@ -58,13 +59,17 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 		try {
 			const savedCart = localStorage.getItem("next_ecommerce_cart");
 			if (savedCart) {
-				setCartItems(JSON.parse(savedCart));
+				const parsed = JSON.parse(savedCart);
+				setTimeout(() => {
+					setCartItems(parsed);
+					setIsLoaded(true);
+				}, 0);
+				return;
 			}
 		} catch (error) {
 			console.error("Failed to load cart from localStorage", error);
-		} finally {
-			setIsLoaded(true);
 		}
+		setTimeout(() => setIsLoaded(true), 0);
 	}, []);
 
 	// Sync cart to localStorage whenever it changes (after initial load)
@@ -169,9 +174,11 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 						<div className="flex items-start gap-3">
 							{toast.image ? (
 								<div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white p-1">
-									<img
+									<Image
 										src={toast.image}
 										alt=""
+										width={48}
+										height={48}
 										className="h-full w-full object-contain"
 									/>
 								</div>
@@ -205,7 +212,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 										prev ? { ...prev, visible: false } : null
 									)
 								}
-								className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
+								className="cursor-pointer rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 							>
 								<X className="h-4 w-4" />
 							</button>
