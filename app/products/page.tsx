@@ -25,7 +25,7 @@ export default async function Page() {
 			<div className="grid grid-cols-3 gap-x-8 gap-y-12">
 				{products.map((product) => (
 					<Link href={"/products/" + product.id} key={product.id}>
-						<Card key={product.id}>
+						<Card key={product.id} className="h-full">
 							<img
 								src={product.image}
 								alt=""

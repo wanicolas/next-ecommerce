@@ -1,6 +1,8 @@
 import { Geist_Mono, Inter, Montserrat } from "next/font/google";
 import Link from "next/link";
 
+import { User } from "lucide-react";
+
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { cn } from "@/lib/utils";
@@ -36,11 +38,17 @@ export default function RootLayout({
 		>
 			<body className="flex min-h-dvh flex-col">
 				<header className="sticky top-0 z-10 mx-auto mb-16 w-full max-w-6xl bg-white/75 px-4 pt-4 pb-4 backdrop-blur sm:px-12 sm:pt-8 md:mb-28 lg:mb-36 dark:bg-black/75">
-					<nav className="flex items-center justify-between">
+					<nav className="flex items-center justify-between gap-3">
 						<Link href="/" className="text-2xl font-bold">
 							Ecommerce™
 						</Link>
-						<Link href="/products">Produits</Link>
+
+						<div className="flex items-center gap-3">
+							<Link href="/products">Produits</Link>
+							<Link href="/compte">
+								<User />
+							</Link>
+						</div>
 					</nav>
 				</header>
 				<ThemeProvider>
