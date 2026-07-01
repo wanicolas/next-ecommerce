@@ -1,14 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
-import {
-	ArrowLeft,
-	Star,
-	StarHalf,
-	Truck,
-	ShieldCheck,
-	Lock,
-	ShoppingBag,
-} from "lucide-react";
+import { ArrowLeft, Truck, ShieldCheck, Lock, ShoppingBag } from "lucide-react";
+import { StarRating } from "@/components/star-rating";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
@@ -52,11 +45,7 @@ export default async function Page({
 		};
 	} = await response.json();
 
-	// Calculate rating stars
-	const rating = product.rating || { rate: 0, count: 0 };
-	const fullStars = Math.floor(rating.rate);
-	const hasHalfStar = rating.rate % 1 >= 0.5;
-	const emptyStars = Math.max(0, 5 - fullStars - (hasHalfStar ? 1 : 0));
+	const rating = product.rating;
 
 	return (
 		<div className="animate-in pb-16 duration-300 fade-in">
@@ -126,28 +115,7 @@ export default async function Page({
 						</h1>
 
 						{/* Rating & Reviews */}
-						{rating.count > 0 && (
-							<div className="flex items-center gap-2">
-								<div className="flex items-center text-amber-400">
-									{Array.from({ length: fullStars }).map((_, i) => (
-										<Star key={`full-${i}`} className="h-4 w-4 fill-current" />
-									))}
-									{hasHalfStar && <StarHalf className="h-4 w-4 fill-current" />}
-									{Array.from({ length: emptyStars }).map((_, i) => (
-										<Star
-											key={`empty-${i}`}
-											className="h-4 w-4 text-zinc-300 dark:text-zinc-700"
-										/>
-									))}
-								</div>
-								<span className="text-sm font-semibold text-foreground">
-									{rating.rate.toFixed(1)} / 5
-								</span>
-								<span className="text-sm text-muted-foreground">
-									({rating.count} avis clients)
-								</span>
-							</div>
-						)}
+						<StarRating rating={product.rating} variant="full" />
 
 						{/* Price */}
 						<div className="pt-2">

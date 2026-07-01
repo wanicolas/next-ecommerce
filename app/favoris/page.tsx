@@ -13,7 +13,8 @@ import {
 	CardFooter,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Trash2, ShoppingCart, Heart, ArrowRight, Star } from "lucide-react";
+import { Trash2, ShoppingCart, Heart, ArrowRight } from "lucide-react";
+import { StarRating } from "@/components/star-rating";
 
 export default function WishlistPage() {
 	const { wishlistItems, toggleWishlist, wishlistCount } = useWishlist();
@@ -88,14 +89,7 @@ export default function WishlistPage() {
 									</Badge>
 
 									{/* Rating */}
-									{rating.count > 0 && (
-										<div className="flex items-center gap-0.5 text-xs">
-											<Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-											<span className="font-semibold text-foreground">
-												{rating.rate.toFixed(1)}
-											</span>
-										</div>
-									)}
+									<StarRating rating={product.rating} variant="compact" />
 								</div>
 
 								<Link

@@ -1,6 +1,7 @@
 import * as React from "react";
 import Link from "next/link";
-import { ArrowRight, Star, ShoppingBag } from "lucide-react";
+import { ArrowRight, ShoppingBag } from "lucide-react";
+import { StarRating } from "@/components/star-rating";
 import {
 	Card,
 	CardHeader,
@@ -109,17 +110,7 @@ export default async function Page() {
 										</Badge>
 
 										{/* Rating summary */}
-										{rating.count > 0 && (
-											<div className="flex items-center gap-1 text-xs">
-												<Star className="h-3 w-3 fill-amber-400 text-amber-400" />
-												<span className="font-semibold text-foreground">
-													{rating.rate.toFixed(1)}
-												</span>
-												<span className="text-muted-foreground">
-													({rating.count})
-												</span>
-											</div>
-										)}
+										<StarRating rating={product.rating} variant="compact" />
 									</div>
 
 									<CardTitle className="line-clamp-2 min-h-[48px] text-base leading-snug font-bold text-foreground transition-colors group-hover:text-primary">
