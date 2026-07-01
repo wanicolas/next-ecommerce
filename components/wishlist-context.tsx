@@ -17,9 +17,13 @@ export interface WishlistItem {
 }
 
 interface WishlistContextType {
+	/** Liste des produits présents dans les favoris. */
 	wishlistItems: WishlistItem[];
+	/** Ajoute ou retire un produit de la liste des favoris. */
 	toggleWishlist: (product: WishlistItem) => void;
+	/** Vérifie si un produit spécifique est dans les favoris. */
 	isInWishlist: (productId: number) => boolean;
+	/** Nombre total d'articles favoris. */
 	wishlistCount: number;
 }
 
@@ -27,6 +31,10 @@ const WishlistContext = createContext<WishlistContextType | undefined>(
 	undefined
 );
 
+/**
+ * Fournisseur de contexte global pour la liste de favoris (Wishlist).
+ * Persiste les favoris dans le localStorage du navigateur avec protection d'hydratation.
+ */
 export function WishlistProvider({ children }: { children: React.ReactNode }) {
 	const [wishlistItems, setWishlistItems] = useState<WishlistItem[]>([]);
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -89,6 +97,10 @@ export function WishlistProvider({ children }: { children: React.ReactNode }) {
 	);
 }
 
+/**
+ * Hook personnalisé pour interagir avec l'état de la liste de favoris (Ajout/Retrait, vérification d'état).
+ * Doit impérativement être utilisé au sein d'un composant enveloppé par un `WishlistProvider`.
+ */
 export function useWishlist() {
 	const context = useContext(WishlistContext);
 	if (context === undefined) {

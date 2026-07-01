@@ -26,17 +26,28 @@ interface ToastState {
 }
 
 interface CartContextType {
+	/** Liste des produits actuellement dans le panier avec leur quantité. */
 	cartItems: CartItem[];
+	/** Ajoute un produit au panier ou incrémente sa quantité s'il existe déjà. */
 	addToCart: (product: CartItem["product"], quantity?: number) => void;
+	/** Retire un produit du panier en fonction de son identifiant. */
 	removeFromCart: (productId: number) => void;
+	/** Met à jour la quantité d'un produit spécifique dans le panier. */
 	updateQuantity: (productId: number, quantity: number) => void;
+	/** Vide l'intégralité du panier de l'utilisateur. */
 	clearCart: () => void;
+	/** Nombre total d'articles dans le panier. */
 	cartCount: number;
+	/** Montant total de la commande en Euros. */
 	cartTotal: number;
 }
 
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
+/**
+ * Fournisseur de contexte global pour le panier (Cart).
+ * Synchronise l'état avec le localStorage du navigateur et gère une notification Toast animée à l'ajout.
+ */
 export function CartProvider({ children }: { children: React.ReactNode }) {
 	const [cartItems, setCartItems] = useState<CartItem[]>([]);
 	const [isLoaded, setIsLoaded] = useState(false);
@@ -194,7 +205,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 										prev ? { ...prev, visible: false } : null
 									)
 								}
-								className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+								className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground cursor-pointer"
 							>
 								<X className="h-4 w-4" />
 							</button>
@@ -206,6 +217,10 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 	);
 }
 
+/**
+ * Hook personnalisé pour interagir avec l'état global du panier.
+ * Doit impérativement être utilisé au sein d'un composant enveloppé par `CartProvider`.
+ */
 export function useCart() {
 	const context = useContext(CartContext);
 	if (context === undefined) {
