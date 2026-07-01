@@ -10,6 +10,7 @@ import {
 	CardContent,
 } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
+import { WishlistButton } from "@/components/wishlist-button";
 
 export default async function Page() {
 	const response = await fetch("https://fakestoreapi.com/products");
@@ -83,6 +84,10 @@ export default async function Page() {
 										alt={product.title}
 										className="h-full max-h-[160px] w-auto object-contain transition-transform duration-300 group-hover:scale-105"
 										loading="lazy"
+									/>
+									<WishlistButton
+										product={product}
+										className="absolute top-3 right-3 z-10"
 									/>
 								</div>
 

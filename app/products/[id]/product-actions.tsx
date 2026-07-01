@@ -3,8 +3,9 @@
 import * as React from "react";
 import { useState } from "react";
 import { useCart, CartItem } from "@/components/cart-context";
+import { useWishlist } from "@/components/wishlist-context";
 import { Button } from "@/components/ui/button";
-import { Minus, Plus, ShoppingBag, Loader2 } from "lucide-react";
+import { Minus, Plus, ShoppingBag, Loader2, Heart } from "lucide-react";
 
 interface ProductActionsProps {
 	product: CartItem["product"];
@@ -36,6 +37,8 @@ export function ProductActions({ product }: ProductActionsProps) {
 			setIsAdding(false);
 		}, 600);
 	};
+
+	const { toggleWishlist, isInWishlist } = useWishlist();
 
 	return (
 		<div className="flex flex-col gap-4">
@@ -79,11 +82,11 @@ export function ProductActions({ product }: ProductActionsProps) {
 				</p>
 			</div>
 
-			{/* Add to Cart Button */}
-			<div className="flex flex-col sm:flex-row gap-3">
+			{/* Add to Cart & Wishlist Buttons */}
+			<div className="flex gap-3">
 				<Button
 					size="lg"
-					className="flex-1 font-semibold transition-all duration-200"
+					className="flex-1 font-semibold transition-all duration-200 cursor-pointer"
 					onClick={handleAdd}
 					disabled={isAdding}
 				>
@@ -98,6 +101,20 @@ export function ProductActions({ product }: ProductActionsProps) {
 							Ajouter au panier
 						</>
 					)}
+				</Button>
+
+				<Button
+					variant="outline"
+					size="lg"
+					className="px-4 hover:text-red-500 hover:border-red-200 dark:hover:border-red-950 transition-colors cursor-pointer shrink-0"
+					onClick={() => toggleWishlist(product)}
+					aria-label={isInWishlist(product.id) ? "Retirer des favoris" : "Ajouter aux favoris"}
+				>
+					<Heart
+						className={`h-5 w-5 transition-transform active:scale-90 ${
+							isInWishlist(product.id) ? "fill-red-500 text-red-500" : "text-muted-foreground"
+						}`}
+					/>
 				</Button>
 			</div>
 		</div>
