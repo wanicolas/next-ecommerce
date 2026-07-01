@@ -11,12 +11,12 @@ export function CartIcon() {
 	return (
 		<Link
 			href="/panier"
-			className="relative rounded-lg p-2 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+			className="relative rounded-lg p-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 			aria-label="Panier"
 		>
 			<ShoppingCart className="h-5 w-5" />
 			{cartCount > 0 && (
-				<span className="absolute -top-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground animate-in zoom-in-50 duration-200">
+				<span className="absolute -top-1 -right-1 flex h-5 w-5 animate-in items-center justify-center rounded-full bg-primary text-[10px] font-bold text-primary-foreground duration-200 zoom-in-50">
 					{cartCount}
 				</span>
 			)}

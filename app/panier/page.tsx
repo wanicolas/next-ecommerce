@@ -79,19 +79,20 @@ export default function CartPage() {
 	// SUCCESS ORDER SCREEN
 	if (orderResult) {
 		return (
-			<div className="max-w-2xl mx-auto text-center py-16 px-4 animate-in fade-in duration-300">
-				<div className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 dark:bg-emerald-950/30 text-emerald-600 dark:text-emerald-400 mb-6">
+			<div className="mx-auto max-w-2xl animate-in px-4 py-16 text-center duration-300 fade-in">
+				<div className="mb-6 inline-flex h-16 w-16 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400">
 					<CheckCircle2 className="h-10 w-10" />
 				</div>
-				<h1 className="text-3xl font-bold tracking-tight mb-2">
+				<h1 className="mb-2 text-3xl font-bold tracking-tight">
 					Commande validée !
 				</h1>
-				<p className="text-muted-foreground text-sm max-w-md mx-auto mb-8">
-					Votre commande a été traitée avec succès. FakeStoreAPI a simulé la transaction avec succès.
+				<p className="mx-auto mb-8 max-w-md text-sm text-muted-foreground">
+					Votre commande a été traitée avec succès. FakeStoreAPI a simulé la
+					transaction avec succès.
 				</p>
 
-				<Card className="border-emerald-100 dark:border-emerald-950 bg-card mb-8">
-					<CardContent className="p-6 space-y-4">
+				<Card className="mb-8 border-emerald-100 bg-card dark:border-emerald-950">
+					<CardContent className="space-y-4 p-6">
 						<div className="flex justify-between text-sm text-muted-foreground">
 							<span>Numéro de commande</span>
 							<span className="font-semibold text-foreground">
@@ -100,26 +101,28 @@ export default function CartPage() {
 						</div>
 						<div className="flex justify-between text-sm text-muted-foreground">
 							<span>Date</span>
-							<span>{new Date(orderResult.date).toLocaleDateString("fr-FR")}</span>
+							<span>
+								{new Date(orderResult.date).toLocaleDateString("fr-FR")}
+							</span>
 						</div>
 						<Separator />
 						<div className="space-y-2">
-							<span className="text-xs font-semibold text-muted-foreground uppercase tracking-wider block text-left">
+							<span className="block text-left text-xs font-semibold tracking-wider text-muted-foreground uppercase">
 								Articles commandés
 							</span>
 							<div className="divide-y divide-border">
 								{orderResult.items.map((item: any) => (
 									<div
 										key={item.product.id}
-										className="flex justify-between items-center py-2 text-sm"
+										className="flex items-center justify-between py-2 text-sm"
 									>
-										<span className="truncate max-w-[320px]">
+										<span className="max-w-[320px] truncate">
 											{item.product.title}{" "}
-											<span className="text-muted-foreground text-xs font-normal">
+											<span className="text-xs font-normal text-muted-foreground">
 												(x{item.quantity})
 											</span>
 										</span>
-										<span className="font-medium shrink-0">
+										<span className="shrink-0 font-medium">
 											{(item.product.price * item.quantity).toFixed(2)} €
 										</span>
 									</div>
@@ -134,7 +137,7 @@ export default function CartPage() {
 					</CardContent>
 				</Card>
 
-				<div className="flex flex-col sm:flex-row justify-center gap-4">
+				<div className="flex flex-col justify-center gap-4 sm:flex-row">
 					<Button asChild size="lg" className="font-semibold">
 						<Link href="/products">Continuer mes achats</Link>
 					</Button>
@@ -149,15 +152,16 @@ export default function CartPage() {
 	// EMPTY CART SCREEN
 	if (cartItems.length === 0) {
 		return (
-			<div className="max-w-md mx-auto text-center py-20 px-4 animate-in fade-in duration-300">
-				<div className="inline-flex h-20 w-20 items-center justify-center rounded-full bg-muted text-muted-foreground mb-6">
+			<div className="mx-auto max-w-md animate-in px-4 py-20 text-center duration-300 fade-in">
+				<div className="mb-6 inline-flex h-20 w-20 items-center justify-center rounded-full bg-muted text-muted-foreground">
 					<ShoppingBagIcon className="h-10 w-10" />
 				</div>
-				<h1 className="text-2xl font-bold tracking-tight mb-2">
+				<h1 className="mb-2 text-2xl font-bold tracking-tight">
 					Votre panier est vide
 				</h1>
-				<p className="text-muted-foreground text-sm mb-8">
-					Découvrez nos produits exceptionnels et commencez à remplir votre panier dès maintenant.
+				<p className="mb-8 text-sm text-muted-foreground">
+					Découvrez nos produits exceptionnels et commencez à remplir votre
+					panier dès maintenant.
 				</p>
 				<Button asChild size="lg" className="font-semibold">
 					<Link href="/products">
@@ -170,19 +174,22 @@ export default function CartPage() {
 
 	// CART LIST SCREEN
 	return (
-		<div className="pb-16 animate-in fade-in duration-300">
-			<h1 className="text-3xl font-bold tracking-tight mb-8 font-heading">
+		<div className="animate-in pb-16 duration-300 fade-in">
+			<h1 className="mb-8 font-heading text-3xl font-bold tracking-tight">
 				Mon Panier ({cartCount} {cartCount > 1 ? "articles" : "article"})
 			</h1>
 
 			<div className="grid gap-8 lg:grid-cols-12">
 				{/* List of Cart Items */}
-				<div className="lg:col-span-8 space-y-4">
+				<div className="space-y-4 lg:col-span-8">
 					{cartItems.map((item) => (
-						<Card key={item.product.id} className="overflow-hidden border-border bg-card">
-							<CardContent className="p-4 sm:p-6 flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+						<Card
+							key={item.product.id}
+							className="overflow-hidden border-border bg-card"
+						>
+							<CardContent className="flex flex-col items-center gap-4 p-4 sm:flex-row sm:gap-6 sm:p-6">
 								{/* Thumbnail */}
-								<div className="h-24 w-24 shrink-0 overflow-hidden rounded-lg bg-white p-2 border border-border flex items-center justify-center">
+								<div className="flex h-24 w-24 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white p-2">
 									<img
 										src={item.product.image}
 										alt={item.product.title}
@@ -191,23 +198,23 @@ export default function CartPage() {
 								</div>
 
 								{/* Info */}
-								<div className="flex-1 min-w-0 w-full">
+								<div className="w-full min-w-0 flex-1">
 									<div className="flex items-start justify-between gap-4">
 										<div>
 											<Link
 												href={`/products/${item.product.id}`}
-												className="font-semibold text-base text-foreground hover:text-primary transition-colors hover:underline line-clamp-2"
+												className="line-clamp-2 text-base font-semibold text-foreground transition-colors hover:text-primary hover:underline"
 											>
 												{item.product.title}
 											</Link>
-											<p className="text-xs text-muted-foreground capitalize mt-1">
+											<p className="mt-1 text-xs text-muted-foreground capitalize">
 												{item.product.category}
 											</p>
 										</div>
 
 										<button
 											onClick={() => removeFromCart(item.product.id)}
-											className="rounded-lg p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive transition-colors shrink-0"
+											className="shrink-0 rounded-lg p-1.5 text-muted-foreground transition-colors hover:bg-destructive/10 hover:text-destructive"
 											title="Supprimer l'article"
 										>
 											<Trash2 className="h-4.5 w-4.5" />
@@ -215,12 +222,14 @@ export default function CartPage() {
 									</div>
 
 									{/* Controls & Price */}
-									<div className="flex items-center justify-between mt-4">
+									<div className="mt-4 flex items-center justify-between">
 										{/* Quantity Picker */}
 										<div className="flex items-center rounded-lg border border-border bg-card p-1">
 											<button
-												onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-												className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+												onClick={() =>
+													updateQuantity(item.product.id, item.quantity - 1)
+												}
+												className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 												type="button"
 												aria-label="Diminuer"
 											>
@@ -230,8 +239,10 @@ export default function CartPage() {
 												{item.quantity}
 											</span>
 											<button
-												onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-												className="rounded-md p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+												onClick={() =>
+													updateQuantity(item.product.id, item.quantity + 1)
+												}
+												className="rounded-md p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 												type="button"
 												aria-label="Augmenter"
 											>
@@ -257,7 +268,7 @@ export default function CartPage() {
 					))}
 
 					{/* Actions row */}
-					<div className="flex justify-between items-center pt-2">
+					<div className="flex items-center justify-between pt-2">
 						<Button asChild variant="ghost" size="sm">
 							<Link href="/products" className="text-xs">
 								← Continuer mes achats
@@ -276,8 +287,8 @@ export default function CartPage() {
 
 				{/* Order Summary Sidebar */}
 				<div className="lg:col-span-4">
-					<Card className="border-border bg-card sticky top-24">
-						<CardContent className="p-6 space-y-6">
+					<Card className="sticky top-24 border-border bg-card">
+						<CardContent className="space-y-6 p-6">
 							<h2 className="text-lg font-bold text-foreground">
 								Résumé de la commande
 							</h2>
@@ -295,9 +306,7 @@ export default function CartPage() {
 								</div>
 								<div className="flex justify-between text-muted-foreground">
 									<span>TVA (20%)</span>
-									<span>
-										{(cartTotal - cartTotal / 1.2).toFixed(2)} €
-									</span>
+									<span>{(cartTotal - cartTotal / 1.2).toFixed(2)} €</span>
 								</div>
 
 								<Separator />
@@ -309,7 +318,7 @@ export default function CartPage() {
 							</div>
 
 							<Button
-								className="w-full font-semibold py-6"
+								className="w-full py-6 font-semibold"
 								onClick={handleCheckout}
 								disabled={isOrdering}
 							>
@@ -323,8 +332,10 @@ export default function CartPage() {
 								)}
 							</Button>
 
-							<p className="text-[10px] text-muted-foreground text-center leading-normal">
-								En validant votre commande, vous acceptez nos conditions générales de vente. Simulation d'API réalisée sur fakestoreapi.com.
+							<p className="text-center text-[10px] leading-normal text-muted-foreground">
+								En validant votre commande, vous acceptez nos conditions
+								générales de vente. Simulation d'API réalisée sur
+								fakestoreapi.com.
 							</p>
 						</CardContent>
 					</Card>

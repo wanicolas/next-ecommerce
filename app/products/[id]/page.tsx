@@ -29,7 +29,10 @@ export default async function Page({
 				<p className="mt-2 text-muted-foreground">
 					Désolé, ce produit n'existe pas ou a été retiré de notre catalogue.
 				</p>
-				<Link href="/products" className="mt-6 flex items-center gap-2 text-primary hover:underline">
+				<Link
+					href="/products"
+					className="mt-6 flex items-center gap-2 text-primary hover:underline"
+				>
 					<ArrowLeft className="h-4 w-4" /> Retour aux produits
 				</Link>
 			</div>
@@ -56,26 +59,29 @@ export default async function Page({
 	const emptyStars = Math.max(0, 5 - fullStars - (hasHalfStar ? 1 : 0));
 
 	return (
-		<div className="pb-16 animate-in fade-in duration-300">
+		<div className="animate-in pb-16 duration-300 fade-in">
 			{/* Breadcrumbs & Navigation */}
 			<div className="mb-6 flex flex-wrap items-center justify-between gap-4">
 				<div className="flex items-center gap-2 text-xs text-muted-foreground">
-					<Link href="/" className="hover:text-foreground transition-colors">
+					<Link href="/" className="transition-colors hover:text-foreground">
 						Accueil
 					</Link>
 					<span>/</span>
-					<Link href="/products" className="hover:text-foreground transition-colors">
+					<Link
+						href="/products"
+						className="transition-colors hover:text-foreground"
+					>
 						Produits
 					</Link>
 					<span>/</span>
-					<span className="capitalize text-foreground font-medium">
+					<span className="font-medium text-foreground capitalize">
 						{product.category}
 					</span>
 				</div>
 
 				<Link
 					href="/products"
-					className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground hover:text-foreground transition-colors"
+					className="inline-flex items-center gap-2 text-xs font-semibold text-muted-foreground transition-colors hover:text-foreground"
 				>
 					<ArrowLeft className="h-3.5 w-3.5" />
 					Retourner aux produits
@@ -86,33 +92,36 @@ export default async function Page({
 			<div className="grid gap-8 lg:grid-cols-12 lg:gap-12">
 				{/* Left Column: Image Card */}
 				<div className="lg:col-span-6">
-					<Card className="overflow-hidden border-border bg-white dark:bg-zinc-900/40 p-8 flex items-center justify-center min-h-[350px] md:min-h-[450px]">
-						<div className="relative aspect-square w-full max-w-[320px] md:max-w-[400px] flex items-center justify-center">
+					<Card className="flex min-h-[350px] items-center justify-center overflow-hidden border-border bg-white p-8 md:min-h-[450px] dark:bg-zinc-900/40">
+						<div className="relative flex aspect-square w-full max-w-[320px] items-center justify-center md:max-w-[400px]">
 							<img
 								src={product.image}
 								alt={product.title}
-								className="h-full max-h-[320px] md:max-h-[400px] w-auto object-contain transition-transform duration-300 hover:scale-105"
+								className="h-full max-h-[320px] w-auto object-contain transition-transform duration-300 hover:scale-105 md:max-h-[400px]"
 							/>
 						</div>
 					</Card>
 				</div>
 
 				{/* Right Column: Details & Actions */}
-				<div className="flex flex-col lg:col-span-6 justify-between space-y-6">
+				<div className="flex flex-col justify-between space-y-6 lg:col-span-6">
 					<div className="space-y-4">
 						{/* Category & Stock */}
 						<div className="flex items-center justify-between">
-							<Badge variant="outline" className="capitalize px-3 py-1 font-semibold tracking-wide bg-secondary/30 text-secondary-foreground border-secondary/50">
+							<Badge
+								variant="outline"
+								className="border-secondary/50 bg-secondary/30 px-3 py-1 font-semibold tracking-wide text-secondary-foreground capitalize"
+							>
 								{product.category}
 							</Badge>
-							<span className="inline-flex items-center gap-1.5 text-xs font-semibold text-emerald-500 bg-emerald-500/10 px-2.5 py-1 rounded-full dark:bg-emerald-500/20">
-								<span className="h-2 w-2 rounded-full bg-emerald-500 animate-pulse" />
+							<span className="inline-flex items-center gap-1.5 rounded-full bg-emerald-500/10 px-2.5 py-1 text-xs font-semibold text-emerald-500 dark:bg-emerald-500/20">
+								<span className="h-2 w-2 animate-pulse rounded-full bg-emerald-500" />
 								En Stock
 							</span>
 						</div>
 
 						{/* Title */}
-						<h1 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl font-heading">
+						<h1 className="font-heading text-3xl font-bold tracking-tight text-foreground sm:text-4xl">
 							{product.title}
 						</h1>
 
@@ -123,11 +132,12 @@ export default async function Page({
 									{Array.from({ length: fullStars }).map((_, i) => (
 										<Star key={`full-${i}`} className="h-4 w-4 fill-current" />
 									))}
-									{hasHalfStar && (
-										<StarHalf className="h-4 w-4 fill-current" />
-									)}
+									{hasHalfStar && <StarHalf className="h-4 w-4 fill-current" />}
 									{Array.from({ length: emptyStars }).map((_, i) => (
-										<Star key={`empty-${i}`} className="h-4 w-4 text-zinc-300 dark:text-zinc-700" />
+										<Star
+											key={`empty-${i}`}
+											className="h-4 w-4 text-zinc-300 dark:text-zinc-700"
+										/>
 									))}
 								</div>
 								<span className="text-sm font-semibold text-foreground">
@@ -141,10 +151,10 @@ export default async function Page({
 
 						{/* Price */}
 						<div className="pt-2">
-							<span className="text-3xl font-extrabold text-foreground tracking-tight">
+							<span className="text-3xl font-extrabold tracking-tight text-foreground">
 								{product.price.toFixed(2)} €
 							</span>
-							<p className="text-xs text-muted-foreground mt-1">
+							<p className="mt-1 text-xs text-muted-foreground">
 								TVA incluse. Éligible à la livraison express.
 							</p>
 						</div>
@@ -153,7 +163,7 @@ export default async function Page({
 
 						{/* Description */}
 						<div className="space-y-2">
-							<h2 className="text-sm font-semibold text-foreground uppercase tracking-wider">
+							<h2 className="text-sm font-semibold tracking-wider text-foreground uppercase">
 								Description du produit
 							</h2>
 							<p className="text-sm leading-relaxed text-muted-foreground">
@@ -170,38 +180,38 @@ export default async function Page({
 					<Separator />
 
 					{/* Trust Badges */}
-					<div className="grid grid-cols-1 sm:grid-cols-3 gap-4 pt-2">
-						<div className="flex items-start gap-3 p-3 rounded-xl border border-border bg-card">
-							<Truck className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+					<div className="grid grid-cols-1 gap-4 pt-2 sm:grid-cols-3">
+						<div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+							<Truck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
 							<div>
 								<h3 className="text-xs font-bold text-foreground">
 									Livraison Offerte
 								</h3>
-								<p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+								<p className="mt-0.5 text-[10px] leading-tight text-muted-foreground">
 									En 2 à 4 jours chez vous
 								</p>
 							</div>
 						</div>
 
-						<div className="flex items-start gap-3 p-3 rounded-xl border border-border bg-card">
-							<ShieldCheck className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+						<div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+							<ShieldCheck className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
 							<div>
 								<h3 className="text-xs font-bold text-foreground">
 									Garantie 2 ans
 								</h3>
-								<p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+								<p className="mt-0.5 text-[10px] leading-tight text-muted-foreground">
 									Retour sous 30 jours gratuit
 								</p>
 							</div>
 						</div>
 
-						<div className="flex items-start gap-3 p-3 rounded-xl border border-border bg-card">
-							<Lock className="h-5 w-5 shrink-0 text-primary mt-0.5" />
+						<div className="flex items-start gap-3 rounded-xl border border-border bg-card p-3">
+							<Lock className="mt-0.5 h-5 w-5 shrink-0 text-primary" />
 							<div>
 								<h3 className="text-xs font-bold text-foreground">
 									Paiement Sécurisé
 								</h3>
-								<p className="text-[10px] text-muted-foreground mt-0.5 leading-tight">
+								<p className="mt-0.5 text-[10px] leading-tight text-muted-foreground">
 									SSL 256-bits chiffré
 								</p>
 							</div>

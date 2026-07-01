@@ -72,7 +72,9 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 
 		// Auto hide toast after 4 seconds
 		setTimeout(() => {
-			setToast((prev) => (prev && prev.id === id ? { ...prev, visible: false } : prev));
+			setToast((prev) =>
+				prev && prev.id === id ? { ...prev, visible: false } : prev
+			);
 		}, 4000);
 	};
 
@@ -146,16 +148,16 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 			{/* Custom Animated Toast Notification */}
 			{toast && (
 				<div
-					className={`fixed bottom-4 right-4 z-50 w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-2xl transition-all duration-300 md:bottom-6 md:right-6 ${
+					className={`fixed right-4 bottom-4 z-50 w-full max-w-sm overflow-hidden rounded-xl border border-border bg-card shadow-2xl transition-all duration-300 md:right-6 md:bottom-6 ${
 						toast.visible
-							? "translate-y-0 opacity-100 scale-100 animate-in fade-in slide-in-from-bottom-5"
-							: "translate-y-4 opacity-0 scale-95 pointer-events-none transition-all duration-200"
+							? "translate-y-0 scale-100 animate-in opacity-100 slide-in-from-bottom-5 fade-in"
+							: "pointer-events-none translate-y-4 scale-95 opacity-0 transition-all duration-200"
 					}`}
 				>
 					<div className="p-4">
 						<div className="flex items-start gap-3">
 							{toast.image ? (
-								<div className="h-12 w-12 shrink-0 overflow-hidden rounded-lg bg-white p-1 border border-border flex items-center justify-center">
+								<div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg border border-border bg-white p-1">
 									<img
 										src={toast.image}
 										alt=""
@@ -171,20 +173,28 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
 								<p className="text-sm font-semibold text-foreground">
 									{toast.title}
 								</p>
-								<p className="text-xs text-muted-foreground line-clamp-1">
+								<p className="line-clamp-1 text-xs text-muted-foreground">
 									{toast.message}
 								</p>
 								<Link
 									href="/panier"
 									className="inline-block text-xs font-semibold text-primary hover:underline"
-									onClick={() => setToast((prev) => prev ? { ...prev, visible: false } : null)}
+									onClick={() =>
+										setToast((prev) =>
+											prev ? { ...prev, visible: false } : null
+										)
+									}
 								>
 									Voir le panier →
 								</Link>
 							</div>
 							<button
-								onClick={() => setToast((prev) => prev ? { ...prev, visible: false } : null)}
-								className="rounded-lg p-1 text-muted-foreground hover:bg-muted hover:text-foreground transition-colors"
+								onClick={() =>
+									setToast((prev) =>
+										prev ? { ...prev, visible: false } : null
+									)
+								}
+								className="rounded-lg p-1 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
 							>
 								<X className="h-4 w-4" />
 							</button>

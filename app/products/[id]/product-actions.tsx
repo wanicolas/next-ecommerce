@@ -52,7 +52,7 @@ export function ProductActions({ product }: ProductActionsProps) {
 						<button
 							onClick={handleDecrease}
 							disabled={quantity <= 1 || isAdding}
-							className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+							className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
 							type="button"
 							aria-label="Diminuer la quantité"
 						>
@@ -64,7 +64,7 @@ export function ProductActions({ product }: ProductActionsProps) {
 						<button
 							onClick={handleIncrease}
 							disabled={quantity >= 10 || isAdding}
-							className="rounded-md p-1.5 text-muted-foreground hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent transition-colors"
+							className="rounded-md p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground disabled:opacity-30 disabled:hover:bg-transparent"
 							type="button"
 							aria-label="Augmenter la quantité"
 						>
@@ -72,13 +72,15 @@ export function ProductActions({ product }: ProductActionsProps) {
 						</button>
 					</div>
 					{quantity >= 10 && (
-						<span className="text-xs text-amber-500 font-medium">
+						<span className="text-xs font-medium text-amber-500">
 							Limite maximale atteinte (10)
 						</span>
 					)}
 				</div>
 				<p className="text-xs text-muted-foreground">
-					Plus que <span className="font-semibold text-foreground">6 articles</span> en stock - Expédition sous 24h
+					Plus que{" "}
+					<span className="font-semibold text-foreground">6 articles</span> en
+					stock - Expédition sous 24h
 				</p>
 			</div>
 
@@ -86,7 +88,7 @@ export function ProductActions({ product }: ProductActionsProps) {
 			<div className="flex gap-3">
 				<Button
 					size="lg"
-					className="flex-1 font-semibold transition-all duration-200 cursor-pointer"
+					className="flex-1 cursor-pointer font-semibold transition-all duration-200"
 					onClick={handleAdd}
 					disabled={isAdding}
 				>
@@ -106,13 +108,19 @@ export function ProductActions({ product }: ProductActionsProps) {
 				<Button
 					variant="outline"
 					size="lg"
-					className="px-4 hover:text-red-500 hover:border-red-200 dark:hover:border-red-950 transition-colors cursor-pointer shrink-0"
+					className="shrink-0 cursor-pointer px-4 transition-colors hover:border-red-200 hover:text-red-500 dark:hover:border-red-950"
 					onClick={() => toggleWishlist(product)}
-					aria-label={isInWishlist(product.id) ? "Retirer des favoris" : "Ajouter aux favoris"}
+					aria-label={
+						isInWishlist(product.id)
+							? "Retirer des favoris"
+							: "Ajouter aux favoris"
+					}
 				>
 					<Heart
 						className={`h-5 w-5 transition-transform active:scale-90 ${
-							isInWishlist(product.id) ? "fill-red-500 text-red-500" : "text-muted-foreground"
+							isInWishlist(product.id)
+								? "fill-red-500 text-red-500"
+								: "text-muted-foreground"
 						}`}
 					/>
 				</Button>

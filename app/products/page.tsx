@@ -17,9 +17,12 @@ export default async function Page() {
 	if (!response.ok) {
 		return (
 			<div className="flex flex-col items-center justify-center py-20 text-center">
-				<h2 className="text-2xl font-bold">Impossible de charger les produits</h2>
+				<h2 className="text-2xl font-bold">
+					Impossible de charger les produits
+				</h2>
 				<p className="mt-2 text-muted-foreground">
-					Une erreur s'est produite lors de la récupération du catalogue. Veuillez réessayer plus tard.
+					Une erreur s'est produite lors de la récupération du catalogue.
+					Veuillez réessayer plus tard.
 				</p>
 			</div>
 		);
@@ -39,35 +42,39 @@ export default async function Page() {
 	}[] = await response.json();
 
 	return (
-		<div className="pb-16 animate-in fade-in duration-300">
+		<div className="animate-in pb-16 duration-300 fade-in">
 			{/* Breadcrumbs */}
 			<div className="mb-6 flex items-center gap-2 text-xs text-muted-foreground">
-				<Link href="/" className="hover:text-foreground transition-colors">
+				<Link href="/" className="transition-colors hover:text-foreground">
 					Accueil
 				</Link>
 				<span>/</span>
-				<span className="text-foreground font-medium">Produits</span>
+				<span className="font-medium text-foreground">Produits</span>
 			</div>
 
 			{/* Page Header */}
-			<div className="mb-10 flex flex-col md:flex-row md:items-end md:justify-between gap-4">
+			<div className="mb-10 flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
 				<div>
-					<h1 className="text-3xl font-bold tracking-tight sm:text-4xl font-heading">
+					<h1 className="font-heading text-3xl font-bold tracking-tight sm:text-4xl">
 						Nos Produits
 					</h1>
-					<p className="text-muted-foreground mt-2 text-sm sm:text-base max-w-xl">
-						Découvrez notre sélection exclusive de vêtements, bijoux et articles électroniques de qualité supérieure au meilleur prix.
+					<p className="mt-2 max-w-xl text-sm text-muted-foreground sm:text-base">
+						Découvrez notre sélection exclusive de vêtements, bijoux et articles
+						électroniques de qualité supérieure au meilleur prix.
 					</p>
 				</div>
 				<div className="shrink-0">
-					<Badge variant="secondary" className="px-3 py-1 font-semibold text-sm">
+					<Badge
+						variant="secondary"
+						className="px-3 py-1 text-sm font-semibold"
+					>
 						{products.length} articles disponibles
 					</Badge>
 				</div>
 			</div>
 
 			{/* Products Grid */}
-			<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+			<div className="grid grid-cols-1 gap-6 sm:grid-cols-2 md:gap-8 lg:grid-cols-3">
 				{products.map((product) => {
 					const rating = product.rating || { rate: 0, count: 0 };
 					return (
@@ -76,9 +83,9 @@ export default async function Page() {
 							key={product.id}
 							className="group"
 						>
-							<Card className="h-full flex flex-col overflow-hidden border-border bg-card hover:shadow-xl hover:-translate-y-1 transition-all duration-300 rounded-xl">
+							<Card className="flex h-full flex-col overflow-hidden rounded-xl border-border bg-card transition-all duration-300 hover:-translate-y-1 hover:shadow-xl">
 								{/* Uniform Image Container (white bg to look clean with fakestoreapi images) */}
-								<div className="bg-white p-6 aspect-[4/3] flex items-center justify-center relative overflow-hidden border-b border-border">
+								<div className="relative flex aspect-[4/3] items-center justify-center overflow-hidden border-b border-border bg-white p-6">
 									<img
 										src={product.image}
 										alt={product.title}
@@ -92,11 +99,11 @@ export default async function Page() {
 								</div>
 
 								{/* Card Content & Text */}
-								<CardHeader className="flex-1 p-6 space-y-2 pb-3">
+								<CardHeader className="flex-1 space-y-2 p-6 pb-3">
 									<div className="flex items-center justify-between gap-2">
 										<Badge
 											variant="outline"
-											className="capitalize text-[10px] px-2 py-0.5 font-semibold bg-secondary/30 text-secondary-foreground border-secondary/50"
+											className="border-secondary/50 bg-secondary/30 px-2 py-0.5 text-[10px] font-semibold text-secondary-foreground capitalize"
 										>
 											{product.category}
 										</Badge>
@@ -115,21 +122,21 @@ export default async function Page() {
 										)}
 									</div>
 
-									<CardTitle className="line-clamp-2 text-base font-bold text-foreground group-hover:text-primary transition-colors min-h-[48px] leading-snug">
+									<CardTitle className="line-clamp-2 min-h-[48px] text-base leading-snug font-bold text-foreground transition-colors group-hover:text-primary">
 										{product.title}
 									</CardTitle>
 
-									<CardDescription className="line-clamp-2 text-xs text-muted-foreground leading-relaxed pt-1">
+									<CardDescription className="line-clamp-2 pt-1 text-xs leading-relaxed text-muted-foreground">
 										{product.description}
 									</CardDescription>
 								</CardHeader>
 
 								{/* Card Footer: Price & CTA */}
-								<CardFooter className="p-6 pt-0 flex items-center justify-between mt-auto">
+								<CardFooter className="mt-auto flex items-center justify-between p-6 pt-0">
 									<span className="text-lg font-extrabold text-foreground">
 										{product.price.toFixed(2)} €
 									</span>
-									<span className="text-xs font-bold text-primary group-hover:underline flex items-center gap-1 transition-all">
+									<span className="flex items-center gap-1 text-xs font-bold text-primary transition-all group-hover:underline">
 										Voir le produit <ArrowRight className="h-3.5 w-3.5" />
 									</span>
 								</CardFooter>
