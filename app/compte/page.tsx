@@ -249,14 +249,14 @@ export default function Page() {
 	if (token) {
 		return (
 			<div className="grid animate-in gap-8 py-8 duration-300 fade-in lg:grid-cols-12">
-				<div className="lg:col-span-4">
+				<div className="min-w-0 lg:col-span-4">
 					<ProfileCard
 						usernameSession={usernameSession}
 						userProfile={userProfile}
 						onLogout={handleLogout}
 					/>
 				</div>
-				<div className="lg:col-span-8">
+				<div className="min-w-0 lg:col-span-8">
 					<OrderHistory orders={orders} isLoading={isLoadingOrders} />
 				</div>
 			</div>

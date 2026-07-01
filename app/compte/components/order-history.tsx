@@ -24,14 +24,14 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 			</div>
 
 			{isLoading ? (
-				<div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-16 text-center">
+				<div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-8 text-center sm:p-16">
 					<Loader2 className="mb-3 h-8 w-8 animate-spin text-primary" />
 					<p className="text-sm font-medium text-muted-foreground">
 						Chargement de votre historique de commandes...
 					</p>
 				</div>
 			) : orders.length === 0 ? (
-				<div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-16 text-center">
+				<div className="flex flex-col items-center justify-center rounded-xl border border-border bg-card p-8 text-center sm:p-16">
 					<ShoppingBag className="mb-4 h-10 w-10 text-muted-foreground" />
 					<h3 className="text-base font-bold text-foreground">
 						Aucune commande passée
@@ -45,11 +45,11 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 					{orders.map((order) => (
 						<Card
 							key={order.id}
-							className="overflow-hidden border-border bg-card transition-all hover:shadow-md"
+							className="overflow-hidden border-border bg-card py-0! transition-all hover:shadow-md"
 						>
 							{/* Order Card Header */}
-							<div className="flex flex-wrap items-center justify-between gap-4 border-b border-border bg-muted/40 px-6 py-4">
-								<div className="flex items-center gap-6">
+							<div className="flex flex-col gap-4 border-b border-border bg-muted/40 px-4 py-4 sm:flex-row sm:items-center sm:justify-between sm:px-6">
+								<div className="flex flex-wrap items-center gap-4 sm:gap-6">
 									<div>
 										<span className="block text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
 											Numéro de commande
@@ -67,9 +67,9 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 										</span>
 									</div>
 								</div>
-								<div className="ml-auto flex items-center gap-6 text-right">
+								<div className="flex items-center justify-between gap-4 sm:justify-end sm:gap-6">
 									<div>
-										<span className="block text-[10px] font-semibold tracking-wider text-muted-foreground uppercase">
+										<span className="block text-[10px] font-semibold tracking-wider text-muted-foreground uppercase sm:text-right">
 											Montant Total
 										</span>
 										<span className="text-sm font-extrabold text-foreground">
@@ -88,12 +88,12 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 							</div>
 
 							{/* Order Card Items List */}
-							<CardContent className="divide-y divide-border p-6">
+							<CardContent className="divide-y divide-border p-4 sm:p-6">
 								{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 								{order.items.map((item: any) => (
 									<div
 										key={item.productId}
-										className="flex items-center gap-4 py-4 first:pt-0 last:pb-0"
+										className="flex w-full min-w-0 items-center gap-3 py-4 first:pt-0 last:pb-0 sm:gap-4"
 									>
 										{item.product.image ? (
 											<Link
@@ -127,7 +127,7 @@ export function OrderHistory({ orders, isLoading }: OrderHistoryProps) {
 											</span>
 										</div>
 
-										<span className="shrink-0 pl-4 text-sm font-bold text-foreground">
+										<span className="shrink-0 pl-2 text-sm font-bold text-foreground sm:pl-4">
 											{(item.product.price * item.quantity).toFixed(2)} €
 										</span>
 									</div>
